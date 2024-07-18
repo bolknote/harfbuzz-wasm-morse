@@ -1,5 +1,5 @@
-#![warn(missing_docs)]
 #![allow(dead_code)]
+#![allow(unused_must_use)]
 //! Interface to Harfbuzz's WASM exports
 //!
 //! This crate is designed to make it easier to write a
