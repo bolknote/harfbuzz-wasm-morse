@@ -67,7 +67,7 @@ fn create_morse_glyphs(input_str: &str) -> Vec<Glyph> {
     ];
     
     let mut morse_glyphs = Vec::new();
-    for (i, c) in input_str.chars().enumerate() {
+    for (i, c) in input_str.to_uppercase().chars().enumerate() {
         let idx = match c {
             'A'..='Z' => (c as usize) - ('A' as usize),
             '0'..='9' => ('Z' as usize - 'A' as usize + 1) + (c as usize) - ('0' as usize),
