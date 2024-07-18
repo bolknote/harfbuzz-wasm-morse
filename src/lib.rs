@@ -12,11 +12,10 @@ pub fn shape(
     let font = Font::from_ref(font_ref);
     let mut buffer = GlyphBuffer::from_ref(buf_ref);
     
-    // Get buffer as string
     let buf_u8: Vec<u8> = buffer.glyphs.iter().map(|g| g.codepoint as u8).collect();
     let str_buf = String::from_utf8_lossy(&buf_u8);
     
-    // Define Morse code mappings (example mapping)
+    // Morse code mappings
     let morse_code_map: Vec<&str> = vec![
         ".-",    // A
         "-...",  // B
