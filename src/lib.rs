@@ -18,38 +18,52 @@ pub fn shape(
     
     // Define Morse code mappings (example mapping)
     let morse_code_map: Vec<&str> = vec![
-        ".-",   // A
-        "-...", // B
-        "-.-.", // C
-        "-..",  // D
-        ".",    // E
-        "..-.", // F
-        "--.",  // G
-        "....", // H
-        "..",   // I
-        ".---", // J
-        "-.-",  // K
-        ".-..", // L
-        "--",   // M
-        "-.",   // N
-        "---",  // O
-        ".--.", // P
-        "--.-", // Q
-        ".-.",  // R
-        "...",  // S
-        "-",    // T
-        "..-",  // U
-        "...-", // V
-        ".--",  // W
-        "-..-", // X
-        "-.--", // Y
-        "--.."  // Z
+        ".-",    // A
+        "-...",  // B
+        "-.-.",  // C
+        "-..",   // D
+        ".",     // E
+        "..-.",  // F
+        "--.",   // G
+        "....",  // H
+        "..",    // I
+        ".---",  // J
+        "-.-",   // K
+        ".-..",  // L
+        "--",    // M
+        "-.",    // N
+        "---",   // O
+        ".--.",  // P
+        "--.-",  // Q
+        ".-.",   // R
+        "...",   // S
+        "-",     // T
+        "..-",   // U
+        "...-",  // V
+        ".--",   // W
+        "-..-",  // X
+        "-.--",  // Y
+        "--..",  // Z
+        "-----", // 0
+        ".----", // 1
+        "..---", // 2
+        "...--", // 3
+        "....-", // 4
+        ".....", // 5
+        "-....", // 6
+        "--...", // 7
+        "---..", // 8
+        "----.", // 9
     ];
     
-    // Convert each Latin letter to its Morse code glyph
     let mut morse_glyphs = Vec::new();
     for (i, c) in str_buf.chars().enumerate() {
-        let idx = (c as usize) - ('A' as usize); // Assuming only uppercase Latin letters
+        let idx = match c {
+            'A'..='Z' => (c as usize) - ('A' as usize),
+            '0'..='9' => ('Z' as usize - 'A' as usize + 1) + (c as usize) - ('0' as usize),
+            _ => continue, // Skip characters that are not A-Z or 0-9
+        };
+
         if idx < morse_code_map.len() {
             let morse_str = morse_code_map[idx];
             if i > 0 {
@@ -78,16 +92,12 @@ pub fn shape(
         }
     }
     
-    // Update buffer with Morse code glyphs
     buffer.glyphs = morse_glyphs;
     
     for item in buffer.glyphs.iter_mut() {
-        // Map character to glyph
         item.codepoint = font.get_glyph(item.codepoint, 0);
-        // Set advance width
         item.x_advance = font.get_glyph_h_advance(item.codepoint);
     }
     
-    // Buffer is written back to HB on drop
     1
 }
