@@ -77,9 +77,9 @@ fn create_morse_glyphs(input_str: &str) -> Vec<Glyph> {
         if idx < morse_code_map.len() {
             let morse_str = morse_code_map[idx];
             if i > 0 {
-                push_glyphs(&mut morse_glyphs, morse_str);
+                push_glyphs(&mut morse_glyphs, " ");
             }
-            push_glyphs(&mut morse_glyphs, " ");
+            push_glyphs(&mut morse_glyphs, morse_str);
         }
     }
     
