@@ -15,9 +15,7 @@ pub fn shape(
     let buf_u8: Vec<u8> = buffer.glyphs.iter().map(|g| g.codepoint as u8).collect();
     let str_buf = String::from_utf8_lossy(&buf_u8);
     
-    let morse_glyphs = create_morse_glyphs(&str_buf);
-    
-    buffer.glyphs = morse_glyphs;
+    buffer.glyphs = create_morse_glyphs(&str_buf);
     
     for glyph in &mut buffer.glyphs {
         glyph.codepoint = font.get_glyph(glyph.codepoint, 0);
