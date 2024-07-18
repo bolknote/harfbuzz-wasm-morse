@@ -76,27 +76,17 @@ fn create_morse_glyphs(input_str: &str) -> Vec<Glyph> {
 
         if idx < morse_code_map.len() {
             let morse_str = morse_code_map[idx];
-            push_morse_glyphs(&mut morse_glyphs, morse_str, i > 0);
+            if i > 0 {
+                push_glyphs(&mut morse_glyphs, morse_str);
+            }
+            push_glyphs(&mut morse_glyphs, " ");
         }
     }
     
     morse_glyphs
 }
 
-fn push_morse_glyphs(morse_glyphs: &mut Vec<Glyph>, morse_str: &str, insert_space: bool) {
-    if insert_space {
-        // Insert space as a new glyph
-        morse_glyphs.push(Glyph {
-            codepoint: ' ' as u32,
-            flags: 0,
-            x_advance: 0,
-            y_advance: 0,
-            cluster: morse_glyphs.len() as u32,
-            x_offset: 0,
-            y_offset: 0,
-        });
-    }
-
+fn push_glyphs(morse_glyphs: &mut Vec<Glyph>, morse_str: &str) {
     for (ix, x) in morse_str.chars().enumerate() {
         morse_glyphs.push(Glyph {
             codepoint: x as u32,
