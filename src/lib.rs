@@ -94,9 +94,9 @@ pub fn shape(
     
     buffer.glyphs = morse_glyphs;
     
-    for item in buffer.glyphs.iter_mut() {
-        item.codepoint = font.get_glyph(item.codepoint, 0);
-        item.x_advance = font.get_glyph_h_advance(item.codepoint);
+    for glyph in &mut buffer.glyphs {
+        glyph.codepoint = font.get_glyph(glyph.codepoint, 0);
+        glyph.x_advance = font.get_glyph_h_advance(glyph.codepoint);
     }
     
     1
