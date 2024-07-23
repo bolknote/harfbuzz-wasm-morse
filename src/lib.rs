@@ -68,13 +68,15 @@ fn create_morse_glyphs(input_str: &str) -> Vec<Glyph> {
     
     let mut morse_glyphs = Vec::new();
     for (i, c) in input_str.to_uppercase().chars().enumerate() {
-        let idx = match c {
-            'A'..='Z' => (c as usize) - ('A' as usize),
-            '0'..='9' => ('Z' as usize - 'A' as usize + 1) + (c as usize) - ('0' as usize),
-            _ => continue, // Skip characters that are not A-Z or 0-9
-        };
+        if c == ' ' {
+            push_glyphs(&mut morse_glyphs, " / ");
+        } else {
+            let idx = match c {
+                'A'..='Z' => (c as usize) - ('A' as usize),
+                '0'..='9' => ('Z' as usize - 'A' as usize + 1) + (c as usize) - ('0' as usize),
+                _ => continue, // Skip characters that are not A-Z or 0-9
+            };
 
-        if idx < morse_code_map.len() {
             let morse_str = morse_code_map[idx];
             if i > 0 {
                 push_glyphs(&mut morse_glyphs, " ");
